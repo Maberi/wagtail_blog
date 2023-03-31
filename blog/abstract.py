@@ -1,9 +1,9 @@
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from wagtail.admin.edit_handlers import (
-    FieldPanel, InlinePanel, MultiFieldPanel, FieldRowPanel)
+    FieldPanel, MultiFieldPanel, FieldRowPanel)
 from wagtail.api import APIField
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
