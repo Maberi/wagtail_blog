@@ -22,7 +22,7 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.6"
 Django = "*"
-wagtail = "^2"
+wagtail = "^4"
 requests = "*"
 lxml = "*"
 
