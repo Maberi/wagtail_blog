@@ -53,3 +53,4 @@ target/
 *.swp
 *.swo
 db.sqlite3
+/.idea

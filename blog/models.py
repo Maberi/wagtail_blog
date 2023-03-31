@@ -1,11 +1,9 @@
-from django.core.exceptions import ValidationError
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db.models import Count
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.shortcuts import get_object_or_404
-from django.template.defaultfilters import slugify
 from wagtail.snippets.models import register_snippet
 from taggit.models import Tag
 
