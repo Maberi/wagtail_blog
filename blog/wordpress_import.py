@@ -8,7 +8,7 @@ from typing import List
 import requests
 from django.core.files import File
 from django.contrib.auth import get_user_model
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.images.models import Image
 
 from .models import BlogPage, BlogCategory, BlogTag
