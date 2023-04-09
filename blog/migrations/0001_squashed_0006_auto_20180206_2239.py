@@ -9,7 +9,7 @@ import django.db.migrations.operations.special
 import django.db.models.deletion
 import modelcluster.contrib.taggit
 import modelcluster.fields
-import wagtail.core.fields
+import wagtail.fields
 
 
 # Functions from the following migrations need manual copying.
