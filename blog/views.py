@@ -20,6 +20,11 @@ def author_view(request, author):
     return index.serve(request, author=author)
 
 
+def dates_view(request, from_date: str, to_date: str = ''):
+    index = BlogIndexPage.objects.first()
+    return index.serve(request, from_date=from_date, to_date=to_date)
+
+
 class LatestEntriesFeed(Feed):
     '''
     If a URL ends with "rss" try to find a matching BlogIndexPage

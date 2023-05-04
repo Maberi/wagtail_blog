@@ -9,6 +9,7 @@ urlpatterns = [
     re_path(r'^category/(?P<category>[-\w]+)/feed/$', views.LatestCategoryFeed(), name="category_feed"),
     re_path(r'^category/(?P<category>[-\w]+)/', views.category_view, name="category"),
     re_path(r'^author/(?P<author>[-\w]+)/', views.author_view, name="author"),
+    re_path(r'^dates/(?P<from_date>20\d{2}-\d{2}-\d{2})/?(?P<to_date>20\d{2}-\d{2}-\d{2})/', views.dates_view, name="dates"),
     re_path(r'(?P<blog_slug>[\w-]+)/rss.*/',
         views.LatestEntriesFeed(),
         name="latest_entries_feed"),

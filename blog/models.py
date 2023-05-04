@@ -1,9 +1,12 @@
+import datetime
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import get_object_or_404
+from wagtail.search.models import Query
 from wagtail.snippets.models import register_snippet
 from taggit.models import Tag
 
@@ -14,7 +17,6 @@ from .abstract import (
     BlogPageAbstract,
     BlogPageTagAbstract
 )
-
 
 COMMENTS_APP = getattr(settings, 'COMMENTS_APP', None)
 
@@ -36,8 +38,8 @@ class BlogIndexPage(BlogIndexPageAbstract):
         )
         return blogs
 
-    def get_context(self, request, tag=None, category=None, author=None, *args,
-                    **kwargs):
+    def get_context(self, request, tag=None, category=None, author=None, from_date=None, to_date=None,
+                    search_query=None, *args, **kwargs):
         context = super(BlogIndexPage, self).get_context(
             request, *args, **kwargs)
         blogs = self.blogs
@@ -59,6 +61,33 @@ class BlogIndexPage(BlogIndexPageAbstract):
                 blogs = blogs.filter(author__username=author)
             else:
                 blogs = blogs.filter(author_id=author)
+        if from_date is None:
+            from_date = request.GET.get('from_date')
+        if to_date is None:
+            to_date = request.GET.get('to_date')
+        try:
+            q = ~Q(pk__in=[])
+            if to_date:
+                fecha = datetime.datetime.strptime(to_date + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
+                q = q & Q(date__lte=fecha)
+                context['to_date'] = fecha
+            if from_date:
+                fecha = datetime.datetime.strptime(from_date, '%Y-%m-%d')
+                q = q & Q(date__gte=fecha)
+                context['from_date'] = fecha
+            blogs = blogs.filter(q)
+        except ValueError:
+            pass
+
+        # Search
+        if search_query is None:
+            search_query = request.GET.get('query', None)
+        if search_query:
+            blogs = blogs.search(search_query)
+            query = Query.get(search_query)
+
+            # Record hit
+            query.add_hit()
 
         # Pagination
         page = request.GET.get('page')
@@ -82,6 +111,7 @@ class BlogIndexPage(BlogIndexPageAbstract):
         context['author'] = author
         context['COMMENTS_APP'] = COMMENTS_APP
         context['paginator'] = paginator
+        context['search_query'] = search_query
         context = get_blog_context(context)
 
         return context
