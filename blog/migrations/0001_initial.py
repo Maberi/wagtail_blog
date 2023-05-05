@@ -2,10 +2,10 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import wagtail.core.fields
+import wagtail.fields
 import django.db.models.deletion
 import modelcluster.fields
-import modelcluster.tags
+import modelcluster.contrib.taggit
 
 
 class Migration(migrations.Migration):
@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
             name='BlogPage',
             fields=[
                 ('page_ptr', models.OneToOneField(serialize=False, to='wagtailcore.Page', primary_key=True, auto_created=True, parent_link=True, on_delete=models.CASCADE)),
-                ('body', wagtail.core.fields.RichTextField()),
+                ('body', wagtail.fields.RichTextField()),
                 ('header_image', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.Image', blank=True)),
             ],
             options={
@@ -79,7 +79,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='blogpage',
             name='tags',
-            field=modelcluster.tags.ClusterTaggableManager(help_text='A comma-separated list of tags.', verbose_name='Tags', to='taggit.Tag', blank=True, through='blog.BlogPageTag'),
+            field=modelcluster.contrib.taggit.ClusterTaggableManager(help_text='A comma-separated list of tags.', verbose_name='Tags', to='taggit.Tag', blank=True, through='blog.BlogPageTag'),
             preserve_default=True,
         ),
         migrations.AddField(
