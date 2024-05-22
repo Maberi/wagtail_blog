@@ -17,9 +17,6 @@ classifiers = [
   'Intended Audience :: Developers',
   "License :: OSI Approved :: Apache Software License",
 ]
-packages = [
-  { include = "blog" }
-]
 dependencies = [
   "django>=5.0",
   "wagtail>=6.0",
