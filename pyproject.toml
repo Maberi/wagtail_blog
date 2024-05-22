@@ -22,7 +22,7 @@ packages = [
 ]
 dependencies = [
   "django>=5.0",
-  "wagtail=>6.0",
+  "wagtail>=6.0",
   "requests",
   "lxml",
 ]
