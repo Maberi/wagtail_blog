@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.db.models import Count, Q
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import get_object_or_404
-from wagtail.search.models import Query
+from wagtail.contrib.search_promotions.models import Query
 from wagtail.snippets.models import register_snippet
 from taggit.models import Tag
 
