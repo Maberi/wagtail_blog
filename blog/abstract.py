@@ -3,7 +3,7 @@ from django.db import models
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.panels import (
-    FieldPanel, MultiFieldPanel, FieldRowPanel)
+    FieldPanel, MultiFieldPanel, FieldRowPanel, TitleFieldPanel)
 from wagtail.api import APIField
 from wagtail.models import Page
 from wagtail.fields import RichTextField
@@ -165,7 +165,7 @@ class BlogPageAbstract(Page):
     
     api_fields = [APIField('body')]
     content_panels = [
-        FieldPanel('title', classname="full title"),
+        TitleFieldPanel('title', classname="full title"),
         MultiFieldPanel([
             FieldPanel('tags'),
             FieldPanel('blog_categories'),
