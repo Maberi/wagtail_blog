@@ -1,6 +1,6 @@
 [project]
 name = "wagtail_blog"
-version = "2.3.6"
+version = "2.3.7"
 description = "A wordpress like blog app implemented in wagtail"
 authors = [
   { name = "David Burke" },
